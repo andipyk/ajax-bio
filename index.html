@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX - Einstein</title>
+    <style>
+            div.center 
+            {
+                text-align: center;
+            }
+            img.small 
+            {
+                height: 300px;
+            }
+            div#description
+            {
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <h1>AJAX - Einstein</h1>
+        <img class="small" src="einstein.jpg" alt="einstein"><br>
+        <button id="request">Who is he?</button><br>
+        <div id="description"></div><br>
+    </div>
+
+    <script>
+    var btn = document.getElementById('request');
+    var bio = document.getElementById('description');
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function(){
+        if (request.readyState === 4) {
+            bio.style.border = '1px solid #e8e8e8';
+            if (request.status === 200) {
+                bio.innerHTML = request.responseText;
+            }
+            else {
+                bio.innerHTML = 'An error occured during your request: '+ request.status + ' ' + request.statusText;
+            }
+        }
+    }
+
+    request.open('Get', 'Bio.txt');
+
+    btn.addEventListener('click', function () {
+       this.style.display = 'none';
+       request.send();
+    });
+    
+    </script>
+    
+</body>
+</html>
